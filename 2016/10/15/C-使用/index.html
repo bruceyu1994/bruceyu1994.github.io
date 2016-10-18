@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>C#使用 | Bruce Yu的个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="C#,模拟登录,ListView,正則匹配,ZXing," />
+  
+
+  <meta name="description" content="1. 模拟登陆12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667HttpWebRequest request = null;  //提供 WebRequest 类的 HTTP 特定的实现。HttpWe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#使用">
+<meta property="og:url" content="https://bruceyu1994.github.io/2016/10/15/C-使用/index.html">
+<meta property="og:site_name" content="Bruce Yu的个人博客">
+<meta property="og:description" content="1. 模拟登陆12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667HttpWebRequest request = null;  //提供 WebRequest 类的 HTTP 特定的实现。HttpWe">
+<meta property="og:updated_time" content="2016-10-16T07:32:08.698Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C#使用">
+<meta name="twitter:description" content="1. 模拟登陆12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667HttpWebRequest request = null;  //提供 WebRequest 类的 HTTP 特定的实现。HttpWe">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-模拟登陆"><span class="toc-text">1. 模拟登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-获取指定页面的内容"><span class="toc-text">2. 获取指定页面的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-正則匹配"><span class="toc-text">3. 正則匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-用zxing库生成二维码"><span class="toc-text">4. 用zxing库生成二维码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-用zxing库生成条形码"><span class="toc-text">5. 用zxing库生成条形码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-listView顯示信息"><span class="toc-text">6. listView顯示信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-listView刪除"><span class="toc-text">7. listView刪除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-listView显示圖片"><span class="toc-text">8. listView显示圖片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-保存图片"><span class="toc-text">9. 保存图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-VS2013工程資源文件的保存和使用"><span class="toc-text">10. VS2013工程資源文件的保存和使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-網絡請求重定向"><span class="toc-text">11. 網絡請求重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-ListView添加checkBox問題"><span class="toc-text">12. ListView添加checkBox問題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-设置窗体不能拉大或拖小"><span class="toc-text">13. 设置窗体不能拉大或拖小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-Base64编码解码"><span class="toc-text">14. Base64编码解码</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-C-使用" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">C#使用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Bruce Yu</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/desktop-development/">desktop development</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://bruceyu1994.github.io//2016/10/15/C-使用/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="1-模拟登陆"><a href="#1-模拟登陆" class="headerlink" title="1. 模拟登陆"></a>1. 模拟登陆</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">HttpWebRequest request = <span class="literal">null</span>;  <span class="comment">//提供 WebRequest 类的 HTTP 特定的实现。</span></div><div class="line">HttpWebResponse response = <span class="literal">null</span>;    <span class="comment">//提供 WebResponse 类的 HTTP 特定的实现</span></div><div class="line"><span class="keyword">try</span> </div><div class="line">&#123;</div><div class="line">    <span class="comment">//提交的信息，包括用户名和密码等信息</span></div><div class="line">    <span class="keyword">string</span> postdata = <span class="string">"uid="</span> + account + <span class="string">"&amp;pwd="</span> + password;</div><div class="line">    <span class="comment">//抽象类的静态方法可直接调用,初始化新的WebRequest实例化web访问类</span></div><div class="line">    request = (HttpWebRequest)WebRequest.Create(loginUrl);</div><div class="line">    <span class="comment">//request.Credentials:获取或设置请求的身份验证信息;</span></div><div class="line">    <span class="comment">//CredentialCache.DefaultCredentials:获取应用程序的系统凭据,</span></div><div class="line">    <span class="comment">//对于 ASP.NET应用程序，默认凭据是已登录的用户或正被模拟的用户的用户凭据。</span></div><div class="line">    request.Credentials = CredentialCache.DefaultCredentials;</div><div class="line">    request.Method = <span class="string">"POST"</span>;<span class="comment">//数据提交方式为POST</span></div><div class="line"></div><div class="line">    <span class="comment">//request.ContentType:获取或设置传入请求的 MIME 内容类型。</span></div><div class="line">    request.ContentType = <span class="string">"application/x-www-form-urlencoded"</span>;    <span class="comment">//模拟头 </span></div><div class="line">    <span class="comment">//request.AllowAutoRedirect：获取或设置一个值，该值指示请求是否应跟随重定向响应；</span></div><div class="line">    <span class="comment">//如果请求应自动跟随 Internet 资源的重定向响应，则为 true，否则为 false。默认值为 true。</span></div><div class="line">    request.AllowAutoRedirect = <span class="literal">false</span>;   <span class="comment">// 不用需自动跳转</span></div><div class="line"></div><div class="line">    <span class="comment">//必须设置CookieContainer存储请求返回的Cookies</span></div><div class="line">    <span class="keyword">if</span> (CookieContainer != <span class="literal">null</span>)</div><div class="line">    &#123;</div><div class="line">        request.CookieContainer = CookieContainer;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        request.CookieContainer = <span class="keyword">new</span> CookieContainer();</div><div class="line">        CookieContainer = request.CookieContainer;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//保持TCP连接</span></div><div class="line">    request.KeepAlive = <span class="literal">true</span>;</div><div class="line">    <span class="comment">//提交请求  </span></div><div class="line">    <span class="keyword">byte</span>[] postdatabytes = Encoding.UTF8.GetBytes(postdata); <span class="comment">//对指定字符集进行编码</span></div><div class="line">    request.ContentLength = postdatabytes.Length;</div><div class="line">    Stream stream;</div><div class="line">    stream = request.GetRequestStream();  <span class="comment">//返回一个数据流为HttpWebRequest发送数据</span></div><div class="line">    <span class="comment">//设置POST 数据，向当前流中写入postdatabytes字节序列，其中0为postdatabytes从0开始的字节偏移量</span></div><div class="line">    <span class="comment">//postdatabytes.Length要写入当前流的字节数。</span></div><div class="line">    stream.Write(postdatabytes, <span class="number">0</span>, postdatabytes.Length); </div><div class="line">    stream.Close();</div><div class="line"></div><div class="line">    <span class="comment">//接收响应</span></div><div class="line">    response = (HttpWebResponse)request.GetResponse(); <span class="comment">//返回对 Internet 请求的响应。</span></div><div class="line">    <span class="comment">//获取包含与特定 URI（request.RequestUri） 关联的 Cookie 实例的 CookieCollection。</span></div><div class="line">    response.Cookies = request.CookieContainer.GetCookies(request.RequestUri);</div><div class="line">    CookieCollection cook = response.Cookies;</div><div class="line">    <span class="comment">//返回一个 HTTP Cookie 标头，其中包含表示由分号分隔的与特定 URI 关联的Cookie 实例的字符串。</span></div><div class="line">    <span class="keyword">string</span> strcookieheader = request.CookieContainer.GetCookieHeader(request.RequestUri);</div><div class="line">    CookiesString = strcookieheader;</div><div class="line">    <span class="comment">//取下一次GET跳转地址  </span></div><div class="line">    <span class="comment">//实现一个 TextReader，使其以gb2312编码从字节流中读取字符。</span></div><div class="line">    StreamReader sr = <span class="keyword">new</span> StreamReader(response.GetResponseStream(), Encoding.GetEncoding(<span class="string">"gb2312"</span>));</div><div class="line">    <span class="keyword">string</span> content = sr.ReadToEnd(); <span class="comment">//读取来自流的当前位置到结尾的所有字符。</span></div><div class="line">    sr.Close(); <span class="comment">//关闭 StreamReader 对象和基础流，并释放与读取器关联的所有系统资源</span></div><div class="line">    request.Abort();    <span class="comment">//取消对 Internet 资源的请求。</span></div><div class="line">    response.Close();   <span class="comment">//Close 方法关闭响应流，并通过其他请求将释放与重复使用的资源的连接。</span></div><div class="line">    <span class="comment">//依据登陆成功后返回的Page信息，求出下次请求的url</span></div><div class="line">    <span class="comment">//每个网站登陆后加载的Url和顺序不尽相同，以下两步需根据实际情况做特殊处理，从而得到下次请求的URL</span></div><div class="line">    <span class="keyword">string</span>[] substr = content.Split(<span class="keyword">new</span> <span class="keyword">char</span>[] &#123; <span class="string">'"'</span> &#125;);</div><div class="line">    NextRequestUrl = <span class="string">"http://zcgl.wzu.edu.cn/plat/"</span> + substr[<span class="number">1</span>];   </div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> (WebException ex)</div><div class="line">&#123;</div><div class="line">    MessageBox.Show(<span class="keyword">string</span>.Format(<span class="string">"登陆时出错，详细信息：&#123;0&#125;"</span>, ex.Message));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>补充：</p>
+<ul>
+<li>CookieContainer: 装载返回的cookies的容器</li>
+<li><p>form的enctype属性为编码方式，分两种：  </p>
+<ol>
+<li><p>application/x-www-form-urlencoded，默认值。action为get时，把form数据转换成一个字串（name1=value1&amp;name2=value2…），append到url后面，用?分割；当action为post时，浏览器把form数据封装到http body中，然后发送到server。  </p>
+</li>
+<li><p>multipart/form-data，type=file时使用，浏览器会把整个表单以控件为单位分割，并为每个部分加上Content-Disposition(form-data或者file),Content-Type(默认为text/plain),name(控件name)等信息，并加上分割符(boundary)。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-获取指定页面的内容"><a href="#2-获取指定页面的内容" class="headerlink" title="2. 获取指定页面的内容"></a>2. 获取指定页面的内容</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">HttpWebRequest request = <span class="literal">null</span>;</div><div class="line">HttpWebResponse response = <span class="literal">null</span>;</div><div class="line"><span class="keyword">try</span></div><div class="line">&#123;</div><div class="line">    request = (HttpWebRequest)WebRequest.Create(NextRequestUrl);</div><div class="line">    request.Credentials = CredentialCache.DefaultCredentials;</div><div class="line">    request.Method = <span class="string">"GET"</span>;</div><div class="line">    request.KeepAlive = <span class="literal">true</span>;</div><div class="line">    request.Headers.Add(<span class="string">"Cookie:"</span> + CookiesString);</div><div class="line">    request.CookieContainer = CookieContainer;</div><div class="line">    request.AllowAutoRedirect = <span class="literal">false</span>;</div><div class="line">    response = (HttpWebResponse)request.GetResponse();</div><div class="line"></div><div class="line">    <span class="comment">//设置cookie  </span></div><div class="line">    CookiesString = request.CookieContainer.GetCookieHeader(request.RequestUri);</div><div class="line">    <span class="comment">//取再次跳转链接  </span></div><div class="line">    StreamReader sr = <span class="keyword">new</span> StreamReader(response.GetResponseStream(), Encoding.GetEncoding(<span class="string">"gb2312"</span>));</div><div class="line">    <span class="keyword">string</span> ss = sr.ReadToEnd();</div><div class="line">    sr.Close();</div><div class="line">    request.Abort();</div><div class="line">    response.Close();</div><div class="line"></div><div class="line">    <span class="comment">//依据登陆成功后返回的Page信息，求出下次请求的url</span></div><div class="line">    <span class="comment">//每个网站登陆后加载的Url和顺序不尽相同，以下两步需根据实际情况做特殊处理，从而得到下次请求的URL</span></div><div class="line">    <span class="comment">//string[] substr = ss.Split(new char[] &#123; '"' &#125;);</span></div><div class="line">    <span class="comment">//NextRequestUrl = substr[1];</span></div><div class="line">    <span class="comment">//NextRequestUrl = "http://zcgl.wzu.edu.cn/plat/" + substr[1];</span></div><div class="line">    ResultHtml = ss;</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> (WebException ex)</div><div class="line">&#123;</div><div class="line">    MessageBox.Show(<span class="keyword">string</span>.Format(<span class="string">"获取页面HTML信息出错，详细信息：&#123;0&#125;"</span>, ex.Message));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-正則匹配"><a href="#3-正則匹配" class="headerlink" title="3. 正則匹配"></a>3. 正則匹配</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Instrument <span class="title">GetInstrumentInfo</span>(<span class="params">String InstrumentNum</span>)</span></div><div class="line">&#123;</div><div class="line">    Match m = Regex.Match(str, pattern);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (m.Success)</div><div class="line">    &#123;</div><div class="line">        Instrument instrument = <span class="keyword">new</span> Instrument();</div><div class="line">        instrument.Number = InstrumentNum;</div><div class="line">        instrument.Unit = m.Groups[<span class="number">1</span>].ToString();</div><div class="line">        instrument.Univalence = m.Groups[<span class="number">2</span>].ToString();</div><div class="line">        instrument.Name = m.Groups[<span class="number">3</span>].ToString();</div><div class="line">        <span class="keyword">return</span> instrument;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="4-用zxing库生成二维码"><a href="#4-用zxing库生成二维码" class="headerlink" title="4. 用zxing库生成二维码"></a>4. 用zxing库生成二维码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//C#代码</span></div><div class="line"><span class="keyword">using</span> com.google.zxing;</div><div class="line"><span class="keyword">using</span> ByteMatrix = com.google.zxing.common.ByteMatrix;</div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> 生成二维码</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CreateQRCode</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//构造二维码内容</span></div><div class="line">    <span class="keyword">string</span> content =</div><div class="line">        Num_columnHeader.Text + <span class="string">"："</span> + Info_listView.Items[<span class="number">1</span>].SubItems[<span class="number">0</span>].Text + <span class="string">"\n"</span> +</div><div class="line">        Name_columnHeader.Text + <span class="string">"："</span> + Info_listView.Items[<span class="number">1</span>].SubItems[<span class="number">1</span>].Text + <span class="string">"\n"</span> +</div><div class="line">        Person_columnHeader.Text + <span class="string">"："</span> + Info_listView.Items[<span class="number">1</span>].SubItems[<span class="number">2</span>].Text + <span class="string">"\n"</span> +</div><div class="line">        Place_columnHeader.Text + <span class="string">"："</span> + Info_listView.Items[<span class="number">1</span>].SubItems[<span class="number">3</span>].Text + <span class="string">"\n"</span> +</div><div class="line">        Type_columnHeader.Text + <span class="string">"："</span> + Info_listView.Items[<span class="number">1</span>].SubItems[<span class="number">4</span>].Text + <span class="string">"\n"</span> +</div><div class="line">        Univalence_columnHeader.Text + <span class="string">"："</span> + Info_listView.Items[<span class="number">1</span>].SubItems[<span class="number">5</span>].Text + <span class="string">"\n"</span> +</div><div class="line">        Date_columnHeader.Text + <span class="string">"："</span> + Info_listView.Items[<span class="number">1</span>].SubItems[<span class="number">6</span>].Text;</div><div class="line"></div><div class="line">    ByteMatrix byteMatrix = <span class="keyword">new</span> MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, <span class="number">200</span>, <span class="number">200</span>);</div><div class="line">    Bitmap bitmap = toBitmap(byteMatrix);</div><div class="line">    QRCode_pictureBox.Image = bitmap;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="5-用zxing库生成条形码"><a href="#5-用zxing库生成条形码" class="headerlink" title="5. 用zxing库生成条形码"></a>5. 用zxing库生成条形码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> 生成条形码</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateBarCode</span>(<span class="params"><span class="keyword">string</span> content</span>)</span></div><div class="line">&#123;</div><div class="line">    Regex rg = <span class="keyword">new</span> Regex(<span class="string">@"^\d&#123;8&#125;$"</span>);</div><div class="line">    <span class="keyword">if</span>(rg.IsMatch(content))</div><div class="line">    &#123;</div><div class="line">        ByteMatrix byteMatrix = <span class="keyword">new</span> MultiFormatWriter().encode(content, BarcodeFormat.EAN_8, <span class="number">200</span>, <span class="number">30</span>);</div><div class="line">        Bitmap bitmap = toBitmap(byteMatrix);</div><div class="line">        BarCodeList.Add(bitmap);</div><div class="line">        QRCode_pictureBox.Image = bitmap;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        MessageBox.Show(<span class="string">"非数字，无法生成条形码"</span>);</div><div class="line">    &#125;</div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> 生成位图</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="byteMatrix"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">private</span> Bitmap <span class="title">toBitmap</span>(<span class="params">ByteMatrix byteMatrix</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> width = byteMatrix.Width;</div><div class="line">    <span class="keyword">int</span> height = byteMatrix.Height;</div><div class="line">    Bitmap bitmap = <span class="keyword">new</span> Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt; width; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j &lt; height; j++)</div><div class="line">        &#123;</div><div class="line">            bitmap.SetPixel(i, j, byteMatrix.get_Renamed(i, j) != <span class="number">-1</span> ? ColorTranslator.FromHtml(<span class="string">"#436EEE"</span>) : ColorTranslator.FromHtml(<span class="string">"#C7C7C7"</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> bitmap;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="6-listView顯示信息"><a href="#6-listView顯示信息" class="headerlink" title="6. listView顯示信息"></a>6. listView顯示信息</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//向listView中添加内容</span></div><div class="line">ListViewItem lvi = <span class="keyword">new</span> ListViewItem(str0);</div><div class="line">lvi.SubItems.Add(str1);</div><div class="line">Info_listView.Items.Add(lvi);</div><div class="line"></div><div class="line"><span class="comment">//读取listView列标题内容</span></div><div class="line"><span class="keyword">string</span> str = columnHeader.Text;</div><div class="line"></div><div class="line"><span class="comment">//读取listView中的index1行，index2+1列的内容</span></div><div class="line"><span class="keyword">string</span> str = Info_listView.Items[index1].SubItems[index2].Text;</div></pre></td></tr></table></figure>
+<h2 id="7-listView刪除"><a href="#7-listView刪除" class="headerlink" title="7. listView刪除"></a>7. listView刪除</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//删除一条记录</span></div><div class="line"><span class="keyword">if</span> (Info_listView.Items.Count &gt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line">    Info_listView.Items.Remove(Info_listView.FocusedItem);</div><div class="line">&#125;</div><div class="line"><span class="comment">//删除多条记录</span></div><div class="line"><span class="keyword">if</span> (Info_listView.Items.Count &gt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line">    Info_listView.MultiSelect = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">foreach</span> (ListViewItem item <span class="keyword">in</span> Info_listView.Items)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (item.Selected)</div><div class="line">            item.Remove();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//清空</span></div><div class="line"><span class="keyword">if</span> (Info_listView.Items.Count &gt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line">    Info_listView.Items.Clear();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="8-listView显示圖片"><a href="#8-listView显示圖片" class="headerlink" title="8. listView显示圖片"></a>8. listView显示圖片</h2><blockquote>
+<p>listView有5种视图:LargeIcon, SmallIcon, List, Details, Tile<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//listView显示图片,视图为LargeIcon</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showCode</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (QRCodeList.Count &gt; <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//QRCode_listView属性设置</span></div><div class="line">        QRCode_listView.View = View.LargeIcon;</div><div class="line">        QRCode_listView.LargeImageList = QRCode_imageList;</div><div class="line">        QRCode_listView.BeginUpdate();</div><div class="line"></div><div class="line">        QRCode_listView.LargeImageList.ImageSize = <span class="keyword">new</span> System.Drawing.Size(<span class="number">200</span>, <span class="number">200</span>);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; QRCodeList.Count; i++)</div><div class="line">        &#123;</div><div class="line">            QRCode_imageList.Images.Add(QRCodeList[i]);</div><div class="line">            ListViewItem lvi = <span class="keyword">new</span> ListViewItem(Info_listView.Items[i].SubItems[<span class="number">0</span>].Text);</div><div class="line">            QRCode_listView.Items.Add(lvi);</div><div class="line">            QRCode_listView.Items[i].ImageIndex = QRCode_imageList.Images.Count - <span class="number">1</span> ;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        QRCode_listView.EndUpdate();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="9-保存图片"><a href="#9-保存图片" class="headerlink" title="9. 保存图片"></a>9. 保存图片</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">FolderBrowserDialog folderDlg = <span class="keyword">new</span> FolderBrowserDialog();</div><div class="line">folderDlg.Description = <span class="string">"请选择文件夹"</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (folderDlg.ShowDialog() == DialogResult.OK)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">string</span> path = folderDlg.SelectedPath;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; QRCodeList.Count; i++)</div><div class="line">    &#123;</div><div class="line">        QRCodeList[i].Save(path + <span class="string">@"\"</span> + Info_listView.Items[i].SubItems[<span class="number">0</span>].Text + <span class="string">".bmp"</span>, System.Drawing.Imaging.ImageFormat.Bmp);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="10-VS2013工程資源文件的保存和使用"><a href="#10-VS2013工程資源文件的保存和使用" class="headerlink" title="10. VS2013工程資源文件的保存和使用"></a>10. VS2013工程資源文件的保存和使用</h2><p><a href="http://blog.csdn.net/mengdong_zy/article/details/8971154" target="_blank" rel="external">C#将图片保存到资源文件并调用</a></p>
+<h2 id="11-網絡請求重定向"><a href="#11-網絡請求重定向" class="headerlink" title="11. 網絡請求重定向"></a>11. 網絡請求重定向</h2><p>在通过get和post获取网络数据时，如果遇到重定向的网址，一定要把HttpWebRequest的重定向参数值设为true,并重新获取当前页面的Cookie<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">request.AllowAutoRedirect = <span class="literal">true</span>;</div><div class="line">response = (HttpWebResponse)request.GetResponse();</div><div class="line"><span class="comment">//获取cookie  </span></div><div class="line">CookiesString = request.CookieContainer.GetCookieHeader(request.RequestUri);</div></pre></td></tr></table></figure></p>
+<h2 id="12-ListView添加checkBox問題"><a href="#12-ListView添加checkBox問題" class="headerlink" title="12. ListView添加checkBox問題"></a>12. ListView添加checkBox問題</h2><p>取消某一个已选中的项，會取消所有已选中的项，在网上找的参考代码在ItemChecked方法中多了一句代码：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.Item.Selected = e.Item.Checked;</div></pre></td></tr></table></figure></p>
+<p>將这句代码的意思应该是把checked的复选框也设制为selected的，注釋該劇代碼就解決了。</p>
+<h2 id="13-设置窗体不能拉大或拖小"><a href="#13-设置窗体不能拉大或拖小" class="headerlink" title="13. 设置窗体不能拉大或拖小"></a>13. 设置窗体不能拉大或拖小</h2><p>將FormBorderStyle設爲为Fix即可，如Fix3D;</p>
+<h2 id="14-Base64编码解码"><a href="#14-Base64编码解码" class="headerlink" title="14. Base64编码解码"></a>14. Base64编码解码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> 編碼</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="data"&gt;</span>需要編碼的数据<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">Encode</span>(<span class="params"><span class="keyword">string</span> data</span>)</span></div><div class="line">&#123;</div><div class="line">    System.Text.Encoding encode = System.Text.Encoding.UTF8;</div><div class="line">    <span class="keyword">byte</span>[] bytedata = encode.GetBytes(data);</div><div class="line">    <span class="keyword">string</span> result = Convert.ToBase64String(bytedata, <span class="number">0</span>, bytedata.Length);</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> 解碼</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="data"&gt;</span>需要解碼的数据<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">Decode</span>(<span class="params"><span class="keyword">string</span> data</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">byte</span>[] bpath = Convert.FromBase64String(data);</div><div class="line">    <span class="keyword">string</span> result = System.Text.ASCIIEncoding.UTF8.GetString(bpath);</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>拓展：<a href="http://www.cnblogs.com/chengxiaohui/articles/3951129.html" target="_blank" rel="external">从原理上搞定编码– Base64编码</a></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://bruceyu1994.github.io/2016/10/15/C-使用/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

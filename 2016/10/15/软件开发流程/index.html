@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>软件开发流程 | Bruce Yu的个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="软件开发,流程," />
+  
+
+  <meta name="description" content="参考自百度百科
+需求分析
+了解需求
+大功能
+小功能
+用户群体
+
+系统设计
+基本处理流程
+系统组织结构
+模块划分
+功能分配
+接口设计
+运行设计
+数据结构设计
+出错处理设计
+
+详细设计
+算法
+数据结构
+类的层次结构及调用关系
+
+
+PS: 应当足够详细，能够根据详细设计进行编码
+
+编码
+实现各模块功能
+
+
+PS: 通常占软件开发1/3的时间
+
+测试
+按照执行方：内部测试/外部测试
+按照测试范围： 模块测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件开发流程">
+<meta property="og:url" content="https://bruceyu1994.github.io/2016/10/15/软件开发流程/index.html">
+<meta property="og:site_name" content="Bruce Yu的个人博客">
+<meta property="og:description" content="参考自百度百科
+需求分析
+了解需求
+大功能
+小功能
+用户群体
+
+系统设计
+基本处理流程
+系统组织结构
+模块划分
+功能分配
+接口设计
+运行设计
+数据结构设计
+出错处理设计
+
+详细设计
+算法
+数据结构
+类的层次结构及调用关系
+
+
+PS: 应当足够详细，能够根据详细设计进行编码
+
+编码
+实现各模块功能
+
+
+PS: 通常占软件开发1/3的时间
+
+测试
+按照执行方：内部测试/外部测试
+按照测试范围： 模块测">
+<meta property="og:updated_time" content="2016-10-15T11:56:07.397Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件开发流程">
+<meta name="twitter:description" content="参考自百度百科
+需求分析
+了解需求
+大功能
+小功能
+用户群体
+
+系统设计
+基本处理流程
+系统组织结构
+模块划分
+功能分配
+接口设计
+运行设计
+数据结构设计
+出错处理设计
+
+详细设计
+算法
+数据结构
+类的层次结构及调用关系
+
+
+PS: 应当足够详细，能够根据详细设计进行编码
+
+编码
+实现各模块功能
+
+
+PS: 通常占软件开发1/3的时间
+
+测试
+按照执行方：内部测试/外部测试
+按照测试范围： 模块测">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统设计"><span class="toc-text">系统设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详细设计"><span class="toc-text">详细设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码"><span class="toc-text">编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件交付"><span class="toc-text">软件交付</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#验收"><span class="toc-text">验收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#维护"><span class="toc-text">维护</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-软件开发流程" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">软件开发流程</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Bruce Yu</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/mobile-development/">mobile development</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://bruceyu1994.github.io//2016/10/15/软件开发流程/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong><em>参考自<a href="http://baike.baidu.com/link?url=cD6VLiJSqMkCLSe-7X6yB5oapMb5aD3_Vgh0PsVGkTaE8pd5rvKXUGEfKpIkZB_xnZyZ1z7Zb9WW5wwnO5mMrCaHgDhu-Nl-k8IQuNeXxyIVEhCHNrxNyrk-84CnGqU44iLJa4F3Vswkm6aYCAYK5a" target="_blank" rel="external">百度百科</a></em></strong></p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
+<li>了解需求</li>
+<li>大功能</li>
+<li>小功能</li>
+<li>用户群体</li>
+</ol>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><ol>
+<li>基本处理流程</li>
+<li>系统组织结构</li>
+<li>模块划分</li>
+<li>功能分配</li>
+<li>接口设计</li>
+<li>运行设计</li>
+<li>数据结构设计</li>
+<li>出错处理设计</li>
+</ol>
+<h2 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h2><ol>
+<li>算法</li>
+<li>数据结构</li>
+<li>类的层次结构及调用关系</li>
+</ol>
+<blockquote>
+<p>PS: 应当足够详细，能够根据详细设计进行编码</p>
+</blockquote>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><ul>
+<li>实现各模块功能</li>
+</ul>
+<blockquote>
+<p>PS: 通常占软件开发1/3的时间</p>
+</blockquote>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li>按照执行方：内部测试/外部测试</li>
+<li>按照测试范围： 模块测试/整体联调</li>
+<li>按照条件： 正常操作情况测试/异常操作情况测试</li>
+<li>按照测试输入范围： 全覆盖测试/抽样测试</li>
+</ol>
+<blockquote>
+<p>PS: 测试同样是项目研发中一个相当重要步骤</p>
+</blockquote>
+<h2 id="软件交付"><a href="#软件交付" class="headerlink" title="软件交付"></a>软件交付</h2><ol>
+<li>目标程序</li>
+<li>数据字典</li>
+<li>《用户使用指南》</li>
+<li>需求报告</li>
+<li>设计报告</li>
+<li>测试报告</li>
+</ol>
+<h2 id="验收"><a href="#验收" class="headerlink" title="验收"></a>验收</h2><h2 id="维护"><a href="#维护" class="headerlink" title="维护"></a>维护</h2><ul>
+<li>需求/环境变化 –&gt; 全部/部分修改</li>
+</ul>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://bruceyu1994.github.io/2016/10/15/软件开发流程/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
