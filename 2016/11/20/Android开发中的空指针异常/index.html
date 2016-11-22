@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android开发中的空指针异常 | Bruce Yu的个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Android,空指针异常," />
+  
+
+  <meta name="description" content="常见空指针异常不易发现的空指针异常1. TextView 设置内容为整型可能原因：在适配器中(如BaseQuickAdapter)，为TextView设置内容为整型。如下為TextView方法簽名：123public final void setText(int resid) &amp;#123;    throw new RuntimeException(&amp;quot;Stub!&amp;quot;);&amp;#125">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发中的空指针异常">
+<meta property="og:url" content="https://bruceyu1994.github.io/2016/11/20/Android开发中的空指针异常/index.html">
+<meta property="og:site_name" content="Bruce Yu的个人博客">
+<meta property="og:description" content="常见空指针异常不易发现的空指针异常1. TextView 设置内容为整型可能原因：在适配器中(如BaseQuickAdapter)，为TextView设置内容为整型。如下為TextView方法簽名：123public final void setText(int resid) &amp;#123;    throw new RuntimeException(&amp;quot;Stub!&amp;quot;);&amp;#125">
+<meta property="og:updated_time" content="2016-11-22T14:20:07.956Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发中的空指针异常">
+<meta name="twitter:description" content="常见空指针异常不易发现的空指针异常1. TextView 设置内容为整型可能原因：在适配器中(如BaseQuickAdapter)，为TextView设置内容为整型。如下為TextView方法簽名：123public final void setText(int resid) &amp;#123;    throw new RuntimeException(&amp;quot;Stub!&amp;quot;);&amp;#125">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?db8b6fe9cdaa19c6f921958de5b22778";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见空指针异常"><span class="toc-text">常见空指针异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不易发现的空指针异常"><span class="toc-text">不易发现的空指针异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-TextView-设置内容为整型"><span class="toc-text">1. TextView 设置内容为整型</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android开发中的空指针异常" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android开发中的空指针异常</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.11.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Bruce Yu</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/mobile-development/">mobile development</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-Android开发中的空指针异常"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+
+    </div>
+
+  </header>
+
+  <div class="article-content">
+
+    
+      <h2 id="常见空指针异常"><a href="#常见空指针异常" class="headerlink" title="常见空指针异常"></a>常见空指针异常</h2><h2 id="不易发现的空指针异常"><a href="#不易发现的空指针异常" class="headerlink" title="不易发现的空指针异常"></a>不易发现的空指针异常</h2><h3 id="1-TextView-设置内容为整型"><a href="#1-TextView-设置内容为整型" class="headerlink" title="1. TextView 设置内容为整型"></a>1. TextView 设置内容为整型</h3><p>可能原因：在适配器中(如BaseQuickAdapter)，为TextView设置内容为整型。<br>如下為TextView方法簽名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public final void setText(int resid) &#123;</div><div class="line">    throw new RuntimeException(&quot;Stub!&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>儅該方法接收int型参数时，系统会去R文件里面找int值匹配的String值，在R文件里找不到这个值，所以可能会报如下异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">E/AndroidRuntime: FATAL EXCEPTION: main</div><div class="line">	 Process: com.zhefish.androidtest, PID: 13193</div><div class="line">	 android.content.res.Resources$NotFoundException: String resource ID #0x0</div><div class="line">	     at android.content.res.Resources.getText(Resources.java:312)</div><div class="line">	     at android.widget.TextView.setText(TextView.java:4417)</div><div class="line">	     at com.chad.library.adapter.base.BaseViewHolder.setText(BaseViewHolder.java:102)</div><div class="line">	     at com.zhefish.androidtest.adapter.TestAdapter.convert(TestAdapter.java:24)</div><div class="line">	     at com.zhefish.androidtest.adapter.TestAdapter.convert(TestAdapter.java:16)</div><div class="line">	     at com.chad.library.adapter.base.BaseQuickAdapter.onBindViewHolder(BaseQuickAdapter.java:607)</div><div class="line">	     at com.chad.library.adapter.base.BaseQuickAdapter.onBindViewHolder(BaseQuickAdapter.java:57)</div><div class="line">	     at android.support.v7.widget.RecyclerView$Adapter.onBindViewHolder(RecyclerView.java:6067)</div><div class="line">	     at android.support.v7.widget.RecyclerView$Adapter.bindViewHolder(RecyclerView.java:6100)</div><div class="line">	     at android.support.v7.widget.RecyclerView$Recycler.getViewForPosition(RecyclerView.java:5282)</div><div class="line">	     at android.support.v7.widget.RecyclerView$Recycler.getViewForPosition(RecyclerView.java:5158)</div><div class="line">	     at android.support.v7.widget.LinearLayoutManager$LayoutState.next(LinearLayoutManager.java:2061)</div><div class="line">	     at android.support.v7.widget.LinearLayoutManager.layoutChunk(LinearLayoutManager.java:1445)</div><div class="line">	     at android.support.v7.widget.LinearLayoutManager.fill(LinearLayoutManager.java:1408)</div><div class="line">	     at android.support.v7.widget.LinearLayoutManager.onLayoutChildren(LinearLayoutManager.java:580)</div><div class="line">	     at android.support.v7.widget.RecyclerView.dispatchLayoutStep2(RecyclerView.java:3379)</div><div class="line">	     at android.support.v7.widget.RecyclerView.dispatchLayout(RecyclerView.java:3188)</div><div class="line">	     at android.support.v7.widget.RecyclerView.onLayout(RecyclerView.java:3632)</div><div class="line">	     at android.view.View.layout(View.java:16630)</div><div class="line">	     at android.view.ViewGroup.layout(ViewGroup.java:5437)</div><div class="line">	     at android.widget.RelativeLayout.onLayout(RelativeLayout.java:1079)</div><div class="line">	     at android.view.View.layout(View.java:16630)</div><div class="line">	     at android.view.ViewGroup.layout(ViewGroup.java:5437)</div><div class="line">	     at android.widget.FrameLayout.layoutChildren(FrameLayout.java:336)</div><div class="line">	     at android.widget.FrameLayout.onLayout(FrameLayout.java:273)</div><div class="line">	     at android.view.View.layout(View.java:16630)</div><div class="line">	     at android.view.ViewGroup.layout(ViewGroup.java:5437)</div><div class="line">	     at android.support.v7.widget.ActionBarOverlayLayout.onLayout(ActionBarOverlayLayout.java:437)</div><div class="line">	     at android.view.View.layout(View.java:16630)</div><div class="line">	     at android.view.ViewGroup.layout(ViewGroup.java:5437)</div><div class="line">	     at android.widget.FrameLayout.layoutChildren(FrameLayout.java:336)</div><div class="line">	     at android.widget.FrameLayout.onLayout(FrameLayout.java:273)</div><div class="line">	     at android.view.View.layout(View.java:16630)</div><div class="line">	     at android.view.ViewGroup.layout(ViewGroup.java:5437)</div><div class="line">	     at android.widget.LinearLayout.setChildFrame(LinearLayout.java:1743)</div><div class="line">	     at android.widget.LinearLayout.layoutVertical(LinearLayout.java:1586)</div><div class="line">	     at android.widget.LinearLayout.onLayout(LinearLayout.java:1495)</div><div class="line">	     at android.view.View.layout(View.java:16630)</div><div class="line">	     at android.view.ViewGroup.layout(ViewGroup.java:5437)</div><div class="line">	     at android.widget.FrameLayout.layoutChildren(FrameLayout.java:336)</div><div class="line">	     at android.widget.FrameLayout.onLayout(FrameLayout.java:273)</div><div class="line">	     at com.android.internal.policy.PhoneWindow$DecorView.onLayout(PhoneWindow.java:2678)</div><div class="line">	     at android.view.View.layout(View.java:16630)</div><div class="line">	     at android.view.ViewGroup.layout(ViewGroup.java:5437)</div><div class="line">	     at android.view.ViewRootImpl.performLayout(ViewRootImpl.java:2171)</div><div class="line">	     at android.view.ViewRootImpl.performTraversals(ViewRootImpl.java:1931)</div><div class="line">	     at android.view.ViewRootImpl.doTraversal(ViewRootImpl.java:1107)</div><div class="line">	     at android.view.ViewRootImpl$TraversalRunnable.run(ViewRootImpl.java:6013)</div><div class="line">	     at android.view.Choreographer$CallbackRecord.run(Choreographer.java:858)</div><div class="line">	     at android.view.Choreographer.doCallbacks(Choreographer.java:670)</div><div class="line">	     at android.view.Choreographer.doFrame(Choreographer.java:606)</div><div class="line">	     at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:844)</div><div class="line">	     at android.os.Handler.handleCallback(Handler.java:739)</div><div class="line">	     at android.os.Handler.dispatchMessage(Handler.java:95)</div><div class="line">	     at android.os.Looper.loop(Looper.java:148)</div><div class="line">	     at android.app.ActivityThread.main(ActivityThread.java:5417)</div><div class="line">	 	at java.lang.reflect.Method.invoke(Native</div></pre></td></tr></table></figure>
+<p>有时候在做项目时，可能由于项目框架的问题导致该错误会报空指针异常，让你丈二的和尚，摸不着头脑。此时如果真的去找空指针异常，可能就会南辕北辙了。这时，我们应该做减法，将代码一点一点的注释掉进行测试，最终定位到出错的代码，才能以最快的速度找到问题的答案。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-Android开发中的空指针异常" data-title="Android开发中的空指针异常" data-url="https://bruceyu1994.github.io/2016/11/20/Android开发中的空指针异常/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"bruceyu"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

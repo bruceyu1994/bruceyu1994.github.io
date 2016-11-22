@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>RecyclerView的使用 | Bruce Yu的个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="RecyclerView,Exception," />
+  
+
+  <meta name="description" content="常见问题Rendering Problems在布局文件中添加 RecyclerView,会出现 Rendering Problems,具体问题如下图所示：
+
+
+详细异常如下：
+123456789101112131415161718192021222324java.lang.IllegalStateException: Unable to locate mode 0	at android.view.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RecyclerView的使用">
+<meta property="og:url" content="https://bruceyu1994.github.io/2016/11/20/RecyclerView的使用/index.html">
+<meta property="og:site_name" content="Bruce Yu的个人博客">
+<meta property="og:description" content="常见问题Rendering Problems在布局文件中添加 RecyclerView,会出现 Rendering Problems,具体问题如下图所示：
+
+
+详细异常如下：
+123456789101112131415161718192021222324java.lang.IllegalStateException: Unable to locate mode 0	at android.view.">
+<meta property="og:image" content="https://coding.net/u/bruceyu1994/p/Images/git/raw/master/RecycleView/exception.png">
+<meta property="og:updated_time" content="2016-11-22T14:20:45.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RecyclerView的使用">
+<meta name="twitter:description" content="常见问题Rendering Problems在布局文件中添加 RecyclerView,会出现 Rendering Problems,具体问题如下图所示：
+
+
+详细异常如下：
+123456789101112131415161718192021222324java.lang.IllegalStateException: Unable to locate mode 0	at android.view.">
+<meta name="twitter:image" content="https://coding.net/u/bruceyu1994/p/Images/git/raw/master/RecycleView/exception.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?db8b6fe9cdaa19c6f921958de5b22778";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见问题"><span class="toc-text">常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rendering-Problems"><span class="toc-text">Rendering Problems</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-RecyclerView的使用" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">RecyclerView的使用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.11.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Bruce Yu</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/mobile-development/">mobile development</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-RecyclerView的使用"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+
+    </div>
+
+  </header>
+
+  <div class="article-content">
+
+    
+      <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Rendering-Problems"><a href="#Rendering-Problems" class="headerlink" title="Rendering Problems"></a>Rendering Problems</h3><p>在布局文件中添加 RecyclerView,会出现 Rendering Problems,具体问题如下图所示：</p>
+<center><br><img src="https://coding.net/u/bruceyu1994/p/Images/git/raw/master/RecycleView/exception.png" alt="Rendering Problems"><br></center>
+
+<p>详细异常如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalStateException: Unable to locate mode 0</div><div class="line">	at android.view.DisplayInfo.findMode(DisplayInfo.java:458)</div><div class="line">	at android.view.DisplayInfo.getMode(DisplayInfo.java:445)</div><div class="line">	at android.view.Display.getRefreshRate(Display.java:648)</div><div class="line">	at android.support.v7.widget.RecyclerView.onAttachedToWindow(RecyclerView.java:2392)</div><div class="line">	at android.view.View.dispatchAttachedToWindow(View.java:15392)</div><div class="line">	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:2953)</div><div class="line">	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:2960)</div><div class="line">	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:2960)</div><div class="line">	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:2960)</div><div class="line">	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:2960)</div><div class="line">	at android.view.AttachInfo_Accessor.setAttachInfo(AttachInfo_Accessor.java:42)</div><div class="line">	at com.android.layoutlib.bridge.impl.RenderSessionImpl.inflate(RenderSessionImpl.java:333)</div><div class="line">	at com.android.layoutlib.bridge.Bridge.createSession(Bridge.java:429)</div><div class="line">	at com.android.ide.common.rendering.LayoutLibrary.createSession(LayoutLibrary.java:389)</div><div class="line">	at com.android.tools.idea.rendering.RenderTask$2.compute(RenderTask.java:548)</div><div class="line">	at com.android.tools.idea.rendering.RenderTask$2.compute(RenderTask.java:533)</div><div class="line">	at com.intellij.openapi.application.impl.ApplicationImpl.runReadAction(ApplicationImpl.java:966)</div><div class="line">	at com.android.tools.idea.rendering.RenderTask.createRenderSession(RenderTask.java:533)</div><div class="line">	at com.android.tools.idea.rendering.RenderTask.lambda$inflate$53(RenderTask.java:659)</div><div class="line">	at java.util.concurrent.FutureTask.run(FutureTask.java:266)</div><div class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</div><div class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</div><div class="line">	at java.lang.Thread.run(Thread.java:745)</div></pre></td></tr></table></figure>
+<p>我的工程中的 build.gradle dependencies如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.android.support:appcompat-v7:25.0.0&apos;</div><div class="line">compile &apos;com.android.support:recyclerview-v7:25.0.0&apos;</div></pre></td></tr></table></figure>
+<p>改为如下即可解决问题，貌似是25.0.0的bug</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.android.support:appcompat-v7:25.0.1&apos;</div><div class="line">compile &apos;com.android.support:recyclerview-v7:25.0.1&apos;</div></pre></td></tr></table></figure>
+<p>Sync Now 之后，问题完美解决</p>
+<p><a href="http://stackoverflow.com/questions/40161934/exception-raised-during-rendering-unable-to-locate-mode-0" target="_blank" rel="external">参考网址</a></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-RecyclerView的使用" data-title="RecyclerView的使用" data-url="https://bruceyu1994.github.io/2016/11/20/RecyclerView的使用/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"bruceyu"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
