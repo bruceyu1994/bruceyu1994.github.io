@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Git之旅 | Bruce Yu的个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="git,命令," />
+  
+
+  <meta name="description" content="git diff 探究
+git提交的三大部分：  
+
+working directory(工作目錄，每當修改后，工作目錄的狀態都會改變)  
+stage/index file(索引文件，暂存区域块，連接 working directory 和 commit 的橋梁，使用 git add 命令登記后，index file 内容就會改變，與 working directory 同步了)  
+commi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git之旅">
+<meta property="og:url" content="https://bruceyu1994.github.io/2016/10/14/Git之旅/index.html">
+<meta property="og:site_name" content="Bruce Yu的个人博客">
+<meta property="og:description" content="git diff 探究
+git提交的三大部分：  
+
+working directory(工作目錄，每當修改后，工作目錄的狀態都會改變)  
+stage/index file(索引文件，暂存区域块，連接 working directory 和 commit 的橋梁，使用 git add 命令登記后，index file 内容就會改變，與 working directory 同步了)  
+commi">
+<meta property="og:updated_time" content="2017-03-02T13:57:39.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git之旅">
+<meta name="twitter:description" content="git diff 探究
+git提交的三大部分：  
+
+working directory(工作目錄，每當修改后，工作目錄的狀態都會改變)  
+stage/index file(索引文件，暂存区域块，連接 working directory 和 commit 的橋梁，使用 git add 命令登記后，index file 内容就會改變，與 working directory 同步了)  
+commi">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?db8b6fe9cdaa19c6f921958de5b22778";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-diff-探究"><span class="toc-text">git diff 探究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-git-diff"><span class="toc-text">1. git diff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-git-diff-–cached"><span class="toc-text">2. git diff –cached</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-git-diff-HEAD"><span class="toc-text">3. git diff HEAD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-git-diff-HEAD-–-lib"><span class="toc-text">4. git diff HEAD – ./lib</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-git-diff-test"><span class="toc-text">5. git diff test</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-git-diff-–stat"><span class="toc-text">6. git diff –stat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-diff-结果如何查看？"><span class="toc-text">git diff 结果如何查看？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-取消-commit"><span class="toc-text">git 取消 commit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git查看全局配置信息"><span class="toc-text">git查看全局配置信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git常见问题"><span class="toc-text">git常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-fatal-remote-origin-already-exists"><span class="toc-text">1. fatal: remote origin already exists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-warning-LF-will-be-replaced-by-CRLF"><span class="toc-text">2. warning: LF will be replaced by CRLF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-如何退出編輯模式"><span class="toc-text">3. 如何退出編輯模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-執行push命令時出現錯誤"><span class="toc-text">4. 執行push命令時出現錯誤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-git-diff-无任何結果輸出"><span class="toc-text">5. git diff 无任何結果輸出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旅途感想"><span class="toc-text">旅途感想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2017年1月22日"><span class="toc-text">2017年1月22日</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2017年2月7日"><span class="toc-text">2017年2月7日</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Git之旅" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Git之旅</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Bruce Yu</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/tools/">tools</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-Git之旅"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+
+    </div>
+
+  </header>
+
+  <div class="article-content">
+
+    
+      <h2 id="git-diff-探究"><a href="#git-diff-探究" class="headerlink" title="git diff 探究"></a>git diff 探究</h2><blockquote>
+<p>git提交的三大部分：  </p>
+<ol>
+<li>working directory(工作目錄，每當修改后，工作目錄的狀態都會改變)  </li>
+<li>stage/index file(索引文件，暂存区域块，連接 working directory 和 commit 的橋梁，使用 <code>git add</code> 命令登記后，index file 内容就會改變，與 working directory 同步了)  </li>
+<li>commit file(<code>git commit</code> 將 index file 中的内容提交到 commit 中。commit 之後，代碼才進入 git 倉庫)<br>其中 1 屬於工作區，后兩者屬於版本庫<br>版本控制系统 git 使用的是合并格式 diff 的变体</li>
+</ol>
+</blockquote>
+<h3 id="1-git-diff"><a href="#1-git-diff" class="headerlink" title="1. git diff"></a>1. git diff</h3><blockquote>
+<p>显示 working directory 與 index file 的差別</p>
+</blockquote>
+<p><strong><em>注：diff 後面可添加完整“文件路徑+文件名”，可查看某一文件内容額變化，如 <code>git diff ./source/_posts/git之旅.md</code></em></strong></p>
+<h3 id="2-git-diff-–cached"><a href="#2-git-diff-–cached" class="headerlink" title="2. git diff –cached"></a>2. git diff –cached</h3><blockquote>
+<p>顯示 index file 與 commit 的差別                  </p>
+</blockquote>
+<h3 id="3-git-diff-HEAD"><a href="#3-git-diff-HEAD" class="headerlink" title="3. git diff HEAD"></a>3. git diff HEAD</h3><blockquote>
+<p>顯示 working directory 與 commit 的差別，這些内容可在執行<code>git commit -a</code>命令時被提交(HEAD 表示當下分支最新的 commit 的版本)</p>
+</blockquote>
+<h3 id="4-git-diff-HEAD-–-lib"><a href="#4-git-diff-HEAD-–-lib" class="headerlink" title="4. git diff HEAD – ./lib"></a>4. git diff HEAD – ./lib</h3><blockquote>
+<p>顯示 working directory 的lib目錄與 commit 之間的差別(當前分支)</p>
+</blockquote>
+<p><strong><em>注：<code>--</code> 前後都有空格</em></strong></p>
+<h3 id="5-git-diff-test"><a href="#5-git-diff-test" class="headerlink" title="5. git diff test"></a>5. git diff test</h3><blockquote>
+<p>顯示 working directory 與”test”分支的差別。可加路徑限定符比較某一文件或目錄</p>
+</blockquote>
+<h3 id="6-git-diff-–stat"><a href="#6-git-diff-–stat" class="headerlink" title="6. git diff –stat"></a>6. git diff –stat</h3><blockquote>
+<p>不看每个文件的详细差别，只统计被改动的文件和行数等</p>
+</blockquote>
+<h2 id="git-diff-结果如何查看？"><a href="#git-diff-结果如何查看？" class="headerlink" title="git diff 结果如何查看？"></a>git diff 结果如何查看？</h2><blockquote>
+<ul>
+<li>第一行 <code>diff --git a/file b/file</code> 表示结果为 git 格式的 diff ，進行比較的是 a 版本(變動前，源文件)的 file 和 b 版本(變動后，目標文件)的 file</li>
+<li>第二行 <code>index e69de29..1747b05 100644</code> 表示兩個版本的 git 哈希值(index 區域的 e69de29 對象與工作目錄區域的 1747b05 對象進行比較，最後 6 位是對象的模式，普通文件， 644 權限)</li>
+<li>—代表源文件</li>
+<li>+++代表目标文件(通常 working directory 中的文件是目标文件)</li>
+<li>空格开头的行是源文件和目标文件中都出现的行</li>
+<li>差异按照差异小结进行组织，每个差异小结的第一行都是定位语句，由<code>@@</code>开头和结尾(如 <code>@@ -0,0 +1,117 @@</code> 表示源文件从第0行开始的0行和目标文件从第1行开始的117行构成一个差异小结)</li>
+</ul>
+</blockquote>
+<h2 id="git-取消-commit"><a href="#git-取消-commit" class="headerlink" title="git 取消 commit"></a>git 取消 commit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git reset --hard &lt;commit_id&gt;</div><div class="line">git push origin HEAD --force</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><code>git reset --mixed</code> : 默認方式，等同于不帶任何參數的 <code>git reset</code> ,回退到某個版本，只保留源碼，回退 commit 和 index 信息</li>
+<li><code>git reset --soft</code> : 回退到某個版本，只回退 commit 信息，不恢復 index file 一級。若想再次提交，直接 commit</li>
+<li><code>git reset --hard</code> : 徹底回退到某個版本，本地源碼也會變爲上一版本的内容</li>
+</ul>
+</blockquote>
+<p><strong>注：</strong></p>
+<ol>
+<li>HEAD 最近一次提交；</li>
+<li>HEAD^(或HEAD~1,一次類推，上100個版本，即HEAD~100) 上一次提交；</li>
+<li><commit_id> 是每次 commit 的 SHA 值，可用 <code>git log</code> 查看</commit_id></li>
+</ol>
+<h2 id="git查看全局配置信息"><a href="#git查看全局配置信息" class="headerlink" title="git查看全局配置信息"></a>git查看全局配置信息</h2><p>【命令】：<code>git config -l</code></p>
+<h2 id="git常见问题"><a href="#git常见问题" class="headerlink" title="git常见问题"></a>git常见问题</h2><h3 id="1-fatal-remote-origin-already-exists"><a href="#1-fatal-remote-origin-already-exists" class="headerlink" title="1. fatal: remote origin already exists"></a>1. fatal: remote origin already exists</h3><p>运行如下命令时；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin git@git.coding.net:bruceyu1994/blog.git</div><div class="line">fatal: remote origin already exists.</div></pre></td></tr></table></figure></p>
+<ul>
+<li>问题描述：远程origin仓库已经存在</li>
+<li><p>原因：在仓库创建之后，已经执行过此操作</p>
+</li>
+<li><p>解决方案：<a href="http://blog.csdn.net/dengjianqiang2011/article/details/9260435" target="_blank" rel="external">参考网址</a></p>
+</li>
+</ul>
+<ol>
+<li>先输入$ git remote rm origin</li>
+<li>再输入$ git remote add origin git@git.coding.net:bruceyu1994/blog.git</li>
+</ol>
+<h3 id="2-warning-LF-will-be-replaced-by-CRLF"><a href="#2-warning-LF-will-be-replaced-by-CRLF" class="headerlink" title="2. warning: LF will be replaced by CRLF"></a>2. warning: LF will be replaced by CRLF</h3><p>运行如下命令时；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git add .</div><div class="line">warning: LF will be replaced by CRLF in _config.yml.</div><div class="line">The file will have its original line endings in your working directory.</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>原因分析：<br>CRLF – Carriage-Return Line-Feed 回车换行<br>就是回车(CR, ASCII 13, \r) 换行(LF, ASCII 10, \n)。<br>这两个ACSII字符不会在屏幕有任何输出，但在Windows中广泛使用来标识一行的结束。而在Linux/UNIX系统中只有换行符。<br>也就是说在windows中的换行符为 CRLF， 而在linux下的换行符为：LF<br>当使用git来生成一个工程后，文件中的换行符为LF， 当执行git add .时，系统提示：LF 将被转换成 CRLF</p>
+</li>
+<li><p>解决方案：<a href="http://blog.csdn.net/u011935939/article/details/50624791" target="_blank" rel="external">参考网址</a><br>运行如下命令时；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config core.autocrlf false</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-如何退出編輯模式"><a href="#3-如何退出編輯模式" class="headerlink" title="3. 如何退出編輯模式"></a>3. 如何退出編輯模式</h3><p>命令模式下输入“ZZ”命令即可</p>
+<h3 id="4-執行push命令時出現錯誤"><a href="#4-執行push命令時出現錯誤" class="headerlink" title="4. 執行push命令時出現錯誤"></a>4. 執行push命令時出現錯誤</h3><p>具體錯誤:</p>
+<blockquote>
+<p>Updates were rejected because the remote contains work that you do</p>
+</blockquote>
+<p>原因：远程仓库比本地版本更新，所以需要先git pull,然后才能git push</p>
+<h3 id="5-git-diff-无任何結果輸出"><a href="#5-git-diff-无任何結果輸出" class="headerlink" title="5. git diff 无任何結果輸出"></a>5. git diff 无任何結果輸出</h3><p>【原因】当前分支没有内容需要提交（排除工作目录内容与暂存区内容相同）。如下，输入 <code>git status</code> 命令，虽然存在 <code>untracked file</code>, 但 <code>nothing added to commit</code>, 即没有需要提交的内容，此情况出现在刚添加一个新文件，且从未对该文件执行 <code>git add</code> 命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ git status</div><div class="line">On branch master</div><div class="line">Your branch is up-to-date with &apos;origin/master&apos;.</div><div class="line">Untracked files:</div><div class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</div><div class="line"></div><div class="line">        others/test.md</div><div class="line"></div><div class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</div></pre></td></tr></table></figure>
+<p>【注】一般执行 <code>git commit</code> 命令之后，<code>git diff</code> 命令不会有任何输出。执行 <code>git status</code> 命令，会有如下输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nothing to commit, working directory clean</div></pre></td></tr></table></figure>
+<p>即工作目录是干净的，没有任何内容需要提交。</p>
+<p><a href="http://www.oschina.net/question/1428681_139293?sort=time" target="_blank" rel="external">参考网址:我用windows msysgit 。在git bash命令窗口中输入git diff 命令为什么没有信息输出</a></p>
+<h2 id="旅途感想"><a href="#旅途感想" class="headerlink" title="旅途感想"></a>旅途感想</h2><h3 id="2017年1月22日"><a href="#2017年1月22日" class="headerlink" title="2017年1月22日"></a>2017年1月22日</h3><p>使用 git 工具，應該勤提交代碼，不然有的時候我們修改了多處代碼，一次性 add 進入索引區，在 <code>git commit</code> 時候，使用 <code>-m</code> 參數很難進行準確描述,即使描述清楚了，也會顯得冗長，對於修改的文件來説，描述也不夠專注準確</p>
+<h3 id="2017年2月7日"><a href="#2017年2月7日" class="headerlink" title="2017年2月7日"></a>2017年2月7日</h3><p>积累的过程真快乐^O^ </p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-Git之旅" data-title="Git之旅" data-url="https://bruceyu1994.github.io/2016/10/14/Git之旅/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"bruceyu"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
