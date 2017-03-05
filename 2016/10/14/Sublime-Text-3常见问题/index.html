@@ -15,25 +15,22 @@
     <meta name="keywords" content="Sublime,OmniMarkupPreviwer,插件," />
   
 
-  <meta name="description" content="1. OmniMarkupPreviwer插件Ctrl+Alt+O: Preview Markup in Browser. 出现如下错误:
-Error: 404 Not Found
-Sorry, the requested URL ‘http://127.0.0.1:51004/view/28‘ caused an error:
-‘buffer_id(28) is not valid (close">
+  <meta name="description" content="自带代码格式化全选代码，Edit  -&amp;gt;  Line  -&amp;gt;  Reindent只是sublime并没有给他赋予快捷键，所以只需加上快捷键即可
+
+添加快捷键Preference  -&amp;gt;  Key Bindings - User中括号内添加如下内容；123456[	&amp;#123;		&quot;keys&quot;   :[&quot;ctrl+shift+f&quot;],		&quot;command&quot;:&quot;reindent&quot;	&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sublime Text 3常见问题">
 <meta property="og:url" content="https://bruceyu1994.github.io/2016/10/14/Sublime-Text-3常见问题/index.html">
 <meta property="og:site_name" content="Bruce Yu的个人博客">
-<meta property="og:description" content="1. OmniMarkupPreviwer插件Ctrl+Alt+O: Preview Markup in Browser. 出现如下错误:
-Error: 404 Not Found
-Sorry, the requested URL ‘http://127.0.0.1:51004/view/28‘ caused an error:
-‘buffer_id(28) is not valid (close">
-<meta property="og:updated_time" content="2017-02-08T14:47:35.885Z">
+<meta property="og:description" content="自带代码格式化全选代码，Edit  -&amp;gt;  Line  -&amp;gt;  Reindent只是sublime并没有给他赋予快捷键，所以只需加上快捷键即可
+
+添加快捷键Preference  -&amp;gt;  Key Bindings - User中括号内添加如下内容；123456[	&amp;#123;		&quot;keys&quot;   :[&quot;ctrl+shift+f&quot;],		&quot;command&quot;:&quot;reindent&quot;	&amp;">
+<meta property="og:updated_time" content="2017-03-05T02:52:40.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sublime Text 3常见问题">
-<meta name="twitter:description" content="1. OmniMarkupPreviwer插件Ctrl+Alt+O: Preview Markup in Browser. 出现如下错误:
-Error: 404 Not Found
-Sorry, the requested URL ‘http://127.0.0.1:51004/view/28‘ caused an error:
-‘buffer_id(28) is not valid (close">
+<meta name="twitter:description" content="自带代码格式化全选代码，Edit  -&amp;gt;  Line  -&amp;gt;  Reindent只是sublime并没有给他赋予快捷键，所以只需加上快捷键即可
+
+添加快捷键Preference  -&amp;gt;  Key Bindings - User中括号内添加如下内容；123456[	&amp;#123;		&quot;keys&quot;   :[&quot;ctrl+shift+f&quot;],		&quot;command&quot;:&quot;reindent&quot;	&amp;">
 
   
 
@@ -176,7 +173,7 @@ Sorry, the requested URL ‘http://127.0.0.1:51004/view/28‘ caused an error:
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-OmniMarkupPreviwer插件"><span class="toc-text">1. OmniMarkupPreviwer插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-自带代码格式化"><span class="toc-text">2. 自带代码格式化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-sublime-text3-注册码"><span class="toc-text">3. sublime text3 注册码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-sublime-text-3-快捷键大全"><span class="toc-text">4. sublime text 3 快捷键大全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-sublime-常用插件与主题"><span class="toc-text">5. sublime 常用插件与主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-插件"><span class="toc-text">5.1 插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-主题"><span class="toc-text">5.2 主题</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自带代码格式化"><span class="toc-text">自带代码格式化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sublime-Text3-注册码"><span class="toc-text">Sublime Text3 注册码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sublime-Text-3-快捷键大全"><span class="toc-text">Sublime Text 3 快捷键大全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sublime-Text-3-常用插件与主题"><span class="toc-text">Sublime Text 3 常用插件与主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#插件"><span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Package-Control"><span class="toc-text">Package Control</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#All-Autocomplete"><span class="toc-text">All Autocomplete</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AutoFileName"><span class="toc-text">AutoFileName</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BracketHighlighter"><span class="toc-text">BracketHighlighter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ConvertToUTF8"><span class="toc-text">ConvertToUTF8</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Emmet"><span class="toc-text">Emmet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FileDiffs"><span class="toc-text">FileDiffs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTML-CSS-JS-Prettify"><span class="toc-text">HTML-CSS-JS Prettify</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Markdown-Extended-Monokai-Extended"><span class="toc-text">Markdown Extended +  Monokai Extended</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Markdown-Preview"><span class="toc-text">Markdown Preview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OmniMarkupPreviewer"><span class="toc-text">OmniMarkupPreviewer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SideBarEnhancements"><span class="toc-text">SideBarEnhancements</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SublimeCodeIntel"><span class="toc-text">SublimeCodeIntel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MarkdownEditing"><span class="toc-text">MarkdownEditing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题"><span class="toc-text">主题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Themr"><span class="toc-text">Themr</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SoDaReloaded"><span class="toc-text">SoDaReloaded</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Error"><span class="toc-text">Error</span></a></li></ol>
   </div>
 
 
@@ -229,7 +226,99 @@ Sorry, the requested URL ‘http://127.0.0.1:51004/view/28‘ caused an error:
   <div class="article-content">
 
     
-      <h2 id="1-OmniMarkupPreviwer插件"><a href="#1-OmniMarkupPreviwer插件" class="headerlink" title="1. OmniMarkupPreviwer插件"></a>1. OmniMarkupPreviwer插件</h2><p>Ctrl+Alt+O: Preview Markup in Browser. 出现如下错误:</p>
+      <h2 id="自带代码格式化"><a href="#自带代码格式化" class="headerlink" title="自带代码格式化"></a>自带代码格式化</h2><p>全选代码，Edit  -&gt;  Line  -&gt;  Reindent<br>只是sublime并没有给他赋予快捷键，所以只需加上快捷键即可</p>
+<ul>
+<li>添加快捷键<br>Preference  -&gt;  Key Bindings - User<br>中括号内添加如下内容；<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">	&#123;</div><div class="line">		<span class="attr">"keys"</span>   :[<span class="string">"ctrl+shift+f"</span>],</div><div class="line">		<span class="attr">"command"</span>:<span class="string">"reindent"</span></div><div class="line">	&#125;</div><div class="line">]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Sublime-Text3-注册码"><a href="#Sublime-Text3-注册码" class="headerlink" title="Sublime Text3 注册码"></a>Sublime Text3 注册码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">—– BEGIN LICENSE —–</div><div class="line">Michael Barnes</div><div class="line">Single User License</div><div class="line">EA7E-821385</div><div class="line">8A353C41 872A0D5C DF9B2950 AFF6F667</div><div class="line">C458EA6D 8EA3C286 98D1D650 131A97AB</div><div class="line">AA919AEC EF20E143 B361B1E7 4C8B7F04</div><div class="line">B085E65E 2F5F5360 8489D422 FB8FC1AA</div><div class="line">93F6323C FD7F7544 3F39C318 D95E6480</div><div class="line">FCCC7561 8A4A1741 68FA4223 ADCEDE07</div><div class="line">200C25BE DBBC4855 C4CFB774 C5EC138C</div><div class="line">0FEC1CEF D9DCECEC D3A5DAD1 01316C36</div><div class="line">—— END LICENSE ——</div></pre></td></tr></table></figure>
+<p><a href="http://blog.sina.com.cn/s/blog_7f5571aa0102w3xq.html" target="_blank" rel="external">sublime text3 注册码</a></p>
+<h2 id="Sublime-Text-3-快捷键大全"><a href="#Sublime-Text-3-快捷键大全" class="headerlink" title="Sublime Text 3 快捷键大全"></a>Sublime Text 3 快捷键大全</h2><blockquote>
+<p>Ctrl+Shift+D → 复制当前行到下一行</p>
+</blockquote>
+<p><a href="http://www.jb51.net/softjc/180873.html" target="_blank" rel="external">参考网址：sublime text 3 快捷键大全</a></p>
+<h2 id="Sublime-Text-3-常用插件与主题"><a href="#Sublime-Text-3-常用插件与主题" class="headerlink" title="Sublime Text 3 常用插件与主题"></a>Sublime Text 3 常用插件与主题</h2><h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><h4 id="Package-Control"><a href="#Package-Control" class="headerlink" title="Package Control"></a>Package Control</h4><blockquote>
+<ul>
+<li>`Ctrl+``调出console</li>
+<li>粘贴以下代码后回车<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import urllib.request,os; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &apos;wb&apos;).write(urllib.request.urlopen( &apos;http://sublime.wbond.net/&apos; + pf.replace(&apos; &apos;,&apos;%20&apos;)).read())</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p><a href="http://www.cnblogs.com/Rising/p/3741116.html" target="_blank" rel="external">参考网址</a></p>
+<h4 id="All-Autocomplete"><a href="#All-Autocomplete" class="headerlink" title="All Autocomplete"></a>All Autocomplete</h4><blockquote>
+<p>让代码自动完成的匹配从所有打开的文件里去匹配，而不是只在当前文件里匹配</p>
+</blockquote>
+<h4 id="AutoFileName"><a href="#AutoFileName" class="headerlink" title="AutoFileName"></a>AutoFileName</h4><blockquote>
+<p>在代码里引用文件时，提供文件名的提示和补全</p>
+</blockquote>
+<h4 id="BracketHighlighter"><a href="#BracketHighlighter" class="headerlink" title="BracketHighlighter"></a>BracketHighlighter</h4><blockquote>
+<p>括号高亮</p>
+</blockquote>
+<h4 id="ConvertToUTF8"><a href="#ConvertToUTF8" class="headerlink" title="ConvertToUTF8"></a>ConvertToUTF8</h4><p>【功能】文件转码成utf-8<br>【简介】通过本插件，您可以编辑并保存目前编码不被 Sublime Text 支持的文件，特别是中日韩用户使用的 GB2312，GBK，BIG5，EUC-KR，EUC-JP ，ANSI等。ConvertToUTF8 同时支持 Sublime Text 2 和 3。</p>
+<h4 id="Emmet"><a href="#Emmet" class="headerlink" title="Emmet"></a>Emmet</h4><blockquote>
+<p>使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度</p>
+</blockquote>
+<h4 id="FileDiffs"><a href="#FileDiffs" class="headerlink" title="FileDiffs"></a>FileDiffs</h4><blockquote>
+<ul>
+<li>【功能】强大的比较代码不同工具</li>
+<li>【简介】比较当前文件与选中的代码、剪切板中代码、另一文件、未保存文件之间的差别。可配置为显示差别在外部比较工具，精确到行。</li>
+</ul>
+</blockquote>
+<h4 id="HTML-CSS-JS-Prettify"><a href="#HTML-CSS-JS-Prettify" class="headerlink" title="HTML-CSS-JS Prettify"></a>HTML-CSS-JS Prettify</h4><blockquote>
+<p>HTML/CSS/JS格式化插件 </p>
+</blockquote>
+<p><a href="http://blog.csdn.net/qdujunjie/article/details/38805835" target="_blank" rel="external">参考网址</a></p>
+<h4 id="Markdown-Extended-Monokai-Extended"><a href="#Markdown-Extended-Monokai-Extended" class="headerlink" title="Markdown Extended +  Monokai Extended"></a>Markdown Extended +  Monokai Extended</h4><blockquote>
+<p>不错的Markdown主题，支持对多种语言的高亮</p>
+</blockquote>
+<h4 id="Markdown-Preview"><a href="#Markdown-Preview" class="headerlink" title="Markdown Preview"></a>Markdown Preview</h4><blockquote>
+<ul>
+<li>将 Markdown 文档渲染成我们想要的文档格式</li>
+<li>【快捷键】Ctrl + Shift + B</li>
+</ul>
+</blockquote>
+<h4 id="OmniMarkupPreviewer"><a href="#OmniMarkupPreviewer" class="headerlink" title="OmniMarkupPreviewer"></a>OmniMarkupPreviewer</h4><blockquote>
+<ul>
+<li>Markdown 文档渲染,实时在浏览器中预览</li>
+<li>Ctrl+Alt+O: Preview Markup in Browser.</li>
+<li>Ctrl+Alt+X: Export Markup as HTML.</li>
+<li>Ctrl+Alt+C: Copy Markup as HTML.</li>
+</ul>
+</blockquote>
+<h4 id="SideBarEnhancements"><a href="#SideBarEnhancements" class="headerlink" title="SideBarEnhancements"></a>SideBarEnhancements</h4><blockquote>
+<p>侧边栏增强</p>
+</blockquote>
+<h4 id="SublimeCodeIntel"><a href="#SublimeCodeIntel" class="headerlink" title="SublimeCodeIntel"></a>SublimeCodeIntel</h4><blockquote>
+<p>全功能的 Sublime Text 代码智能自动补全引擎</p>
+</blockquote>
+<h4 id="MarkdownEditing"><a href="#MarkdownEditing" class="headerlink" title="MarkdownEditing"></a>MarkdownEditing</h4><blockquote>
+<p>支持Markdown语法高亮；支持Github Favored Markdown语法；自带3个主题；支持 markdown 语法自动补全。</p>
+</blockquote>
+<p>【特性】</p>
+<blockquote>
+<ul>
+<li>跳转到符号定义</li>
+<li>导入自动完成</li>
+<li>函数调用提示</li>
+</ul>
+</blockquote>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><h4 id="Themr"><a href="#Themr" class="headerlink" title="Themr"></a>Themr</h4><blockquote>
+<ul>
+<li>主题管理，切换主题的时候，不用自己修改配置文件了，用这个可以方便的切换主题</li>
+<li>Ctrl+F5 切换 theme</li>
+</ul>
+</blockquote>
+<h4 id="SoDaReloaded"><a href="#SoDaReloaded" class="headerlink" title="SoDaReloaded"></a>SoDaReloaded</h4><blockquote>
+<p>Dark and light custom UI themes for Sublime Text 3 optimized for better readability.(拥有暗色和亮色两种自定义UI主题优化阅读)</p>
+</blockquote>
+<h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><blockquote>
+<p>Error: github API responded in an unfashion way :/</p>
+</blockquote>
+<p>可能是 Markdown Preview 插件出了问题，如果又替代的插件，如 OmniMarkupPreviewer ，将 Markdown Preview 插件卸载就不会有问题了。而且卸载前，每保存一下 sublime 都会卡住，卸载之后就不会卡了。</p>
+<blockquote>
+<p>OmniMarkupPreviwer插件</p>
+</blockquote>
+<p>Ctrl+Alt+O: Preview Markup in Browser. 出现如下错误:</p>
 <p>Error: 404 Not Found</p>
 <p>Sorry, the requested URL ‘<a href="http://127.0.0.1:51004/view/28" target="_blank" rel="external">http://127.0.0.1:51004/view/28</a>‘ caused an error:</p>
 <p>‘buffer_id(28) is not valid (closed or unsupported file format)’</p>
@@ -239,55 +328,7 @@ Sorry, the requested URL ‘http://127.0.0.1:51004/view/28‘ caused an error:
 </ul>
 <p>Sublime Text &gt; Preferences &gt; Package Settings &gt; OmniMarkupPreviewer &gt; Settings - User</p>
 <p>paste the following to remove the strikeout package.<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"renderer_options-MarkdownRenderer"</span>: &#123;</div><div class="line">        <span class="attr">"extensions"</span>: [<span class="string">"tables"</span>, <span class="string">"fenced_code"</span>, <span class="string">"codehilite"</span>]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="2-自带代码格式化"><a href="#2-自带代码格式化" class="headerlink" title="2. 自带代码格式化"></a>2. 自带代码格式化</h2><p>全选代码，Edit  -&gt;  Line  -&gt;  Reindent<br>只是sublime并没有给他赋予快捷键，所以只需加上快捷键即可</p>
-<ul>
-<li>添加快捷键<br>Preference  -&gt;  Key Bindings - User<br>中括号内添加如下内容；<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">	&#123;</div><div class="line">		<span class="attr">"keys"</span>   :[<span class="string">"ctrl+shift+f"</span>],</div><div class="line">		<span class="attr">"command"</span>:<span class="string">"reindent"</span></div><div class="line">	&#125;</div><div class="line">]</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="3-sublime-text3-注册码"><a href="#3-sublime-text3-注册码" class="headerlink" title="3. sublime text3 注册码"></a>3. sublime text3 注册码</h2><p><a href="http://blog.sina.com.cn/s/blog_7f5571aa0102w3xq.html" target="_blank" rel="external">sublime text3 注册码</a></p>
-<h2 id="4-sublime-text-3-快捷键大全"><a href="#4-sublime-text-3-快捷键大全" class="headerlink" title="4. sublime text 3 快捷键大全"></a>4. sublime text 3 快捷键大全</h2><blockquote>
-<ul>
-<li>Ctrl+Shift+D → 复制当前行到下一行</li>
-</ul>
-</blockquote>
-<p><a href="http://www.jb51.net/softjc/180873.html" target="_blank" rel="external">参考网址：sublime text 3 快捷键大全</a></p>
-<h2 id="5-sublime-常用插件与主题"><a href="#5-sublime-常用插件与主题" class="headerlink" title="5. sublime 常用插件与主题"></a>5. sublime 常用插件与主题</h2><h3 id="5-1-插件"><a href="#5-1-插件" class="headerlink" title="5.1 插件"></a>5.1 插件</h3><ol>
-<li><p>Package Control</p>
-</li>
-<li><p>All Autocomplete</p>
-</li>
-<li><p>AutoFileName</p>
-</li>
-<li><p>BracketHighlighter</p>
-</li>
-<li><p>ConvertToUTF8</p>
-</li>
-<li><p>Emmmet</p>
-</li>
-<li><p>FileDiffs</p>
-</li>
-<li><p>HTML-CSS-JS Prettify</p>
-<blockquote>
-<p>HTML/CSS/JS格式化插件 <a href="http://blog.csdn.net/qdujunjie/article/details/38805835" target="_blank" rel="external">参考网址</a></p>
-</blockquote>
-</li>
-<li><p>Markdown Extended</p>
-</li>
-<li><p>Markdown Preview</p>
-</li>
-<li><p>OmniMarkupPreviewer</p>
-</li>
-<li><p>SideBarEnhancements</p>
-</li>
-<li><p>SublimeCodeIntel</p>
-</li>
-</ol>
-<h3 id="5-2-主题"><a href="#5-2-主题" class="headerlink" title="5.2 主题"></a>5.2 主题</h3><ol>
-<li><p>SoDaReloaded</p>
-</li>
-<li><p>Themr</p>
-</li>
-</ol>
+<p><a href="http://www.tuicool.com/articles/FR3ma2" target="_blank" rel="external">Sublime常用插件收集贴</a><br><a href="http://www.xuanfengge.com/practical-collection-of-sublime-plug-in.html" target="_blank" rel="external">实用的sublime插件集合 – sublime推荐必备插件</a><br><a href="http://www.tuicool.com/articles/NJrQfub" target="_blank" rel="external">在 Sublime 中配置 Markdown 环境</a><br><a href="http://www.tuicool.com/articles/VZ7Fnm3" target="_blank" rel="external">Sublime Text3配置使用教程整理</a></p>
 
     
   </div>

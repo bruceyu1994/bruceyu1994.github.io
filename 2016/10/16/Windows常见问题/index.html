@@ -23,7 +23,7 @@ aam updates notifier自启将Adobe的更新程序启动禁用后，每次开机�
 <meta property="og:site_name" content="Bruce Yu的个人博客">
 <meta property="og:description" content="win10自带中文输入法變繁体了解決方案：Ctrl + Shift + F 快速切换简体和繁体 參考自微软极客社区
 aam updates notifier自启将Adobe的更新程序启动禁用后，每次开机之后，还是会看到Adobe的更新程序，感觉很是不爽，但又不舍得将软件卸载，很是纠结。后来在网上找到了一篇文章，给了我灵感，原来Adobe有一个任务计划程序，在win10搜索框中输入“任务”2个字，选">
-<meta property="og:updated_time" content="2016-11-27T02:04:30.176Z">
+<meta property="og:updated_time" content="2017-03-04T12:50:48.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows常见问题">
 <meta name="twitter:description" content="win10自带中文输入法變繁体了解決方案：Ctrl + Shift + F 快速切换简体和繁体 參考自微软极客社区
@@ -170,7 +170,7 @@ aam updates notifier自启将Adobe的更新程序启动禁用后，每次开机�
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#win10"><span class="toc-text">win10</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自带中文输入法變繁体了"><span class="toc-text">自带中文输入法變繁体了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aam-updates-notifier自启"><span class="toc-text">aam updates notifier自启</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#win10"><span class="toc-text">win10</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自带中文输入法變繁体了"><span class="toc-text">自带中文输入法變繁体了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aam-updates-notifier自启"><span class="toc-text">aam updates notifier自启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量删除文件名中的空格"><span class="toc-text">批量删除文件名中的空格</span></a></li></ol></li></ol>
   </div>
 
 
@@ -226,6 +226,7 @@ aam updates notifier自启将Adobe的更新程序启动禁用后，每次开机�
       <h2 id="win10"><a href="#win10" class="headerlink" title="win10"></a>win10</h2><h3 id="自带中文输入法變繁体了"><a href="#自带中文输入法變繁体了" class="headerlink" title="自带中文输入法變繁体了"></a>自带中文输入法變繁体了</h3><p>解決方案：Ctrl + Shift + F 快速切换简体和繁体 參考自<a href="http://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1705417&amp;highlight=" target="_blank" rel="external">微软极客社区</a></p>
 <h3 id="aam-updates-notifier自启"><a href="#aam-updates-notifier自启" class="headerlink" title="aam updates notifier自启"></a>aam updates notifier自启</h3><p>将Adobe的更新程序启动禁用后，每次开机之后，还是会看到Adobe的更新程序，感觉很是不爽，但又不舍得将软件卸载，很是纠结。后来在网上找到了一篇文章，给了我灵感，原来Adobe有一个任务计划程序，在win10搜索框中输入“任务”2个字，选择任务计划程序，果然有一个名为AdobeAAMUpdater的任务计划，右击将其禁用即可。重启电脑，你会发现该程序不再出现了，顿时觉得整个世界都清静多了(●’◡’●)</p>
 <p><a href="http://tvdv.blog.163.com/blog/static/772399920121051159183/" target="_blank" rel="external">参考自网易博客 - 竹乐谷的日志</a></p>
+<h3 id="批量删除文件名中的空格"><a href="#批量删除文件名中的空格" class="headerlink" title="批量删除文件名中的空格"></a>批量删除文件名中的空格</h3><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@<span class="built_in">echo</span> off&amp;<span class="built_in">setlocal</span> enabledelayedexpansion</div><div class="line"><span class="keyword">for</span> /f "delims=" <span class="variable">%%i</span> <span class="keyword">in</span> ('<span class="built_in">dir</span> /s/b *.*') <span class="keyword">do</span> (</div><div class="line">    <span class="built_in">set</span> "foo=<span class="variable">%%~</span>nxi"</div><div class="line">    <span class="built_in">set</span> foo=!foo: =!</div><div class="line">    <span class="built_in">set</span> foo=!foo: =!</div><div class="line">    <span class="built_in">ren</span> "<span class="variable">%%~</span>fi" "<span class="variable">!foo!</span>"</div><div class="line">)</div><div class="line"><span class="keyword">exit</span></div></pre></td></tr></table></figure>
 
     
   </div>

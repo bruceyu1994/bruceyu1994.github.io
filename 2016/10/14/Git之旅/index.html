@@ -23,7 +23,7 @@ stage/index file(索引文件，暂存区域块，連接 working directory 和 c
 commi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git之旅">
-<meta property="og:url" content="https://bruceyu1994.github.io/2016/10/14/Git之旅/index.html">
+<meta property="og:url" content="https://bruceyu1994.github.io/2016/10/14/git之旅/index.html">
 <meta property="og:site_name" content="Bruce Yu的个人博客">
 <meta property="og:description" content="git diff 探究
 git提交的三大部分：  
@@ -31,7 +31,7 @@ git提交的三大部分：
 working directory(工作目錄，每當修改后，工作目錄的狀態都會改變)  
 stage/index file(索引文件，暂存区域块，連接 working directory 和 commit 的橋梁，使用 git add 命令登記后，index file 内容就會改變，與 working directory 同步了)  
 commi">
-<meta property="og:updated_time" content="2017-03-02T13:57:39.163Z">
+<meta property="og:updated_time" content="2017-03-05T02:56:45.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git之旅">
 <meta name="twitter:description" content="git diff 探究
@@ -182,13 +182,13 @@ commi">
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-diff-探究"><span class="toc-text">git diff 探究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-git-diff"><span class="toc-text">1. git diff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-git-diff-–cached"><span class="toc-text">2. git diff –cached</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-git-diff-HEAD"><span class="toc-text">3. git diff HEAD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-git-diff-HEAD-–-lib"><span class="toc-text">4. git diff HEAD – ./lib</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-git-diff-test"><span class="toc-text">5. git diff test</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-git-diff-–stat"><span class="toc-text">6. git diff –stat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-diff-结果如何查看？"><span class="toc-text">git diff 结果如何查看？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-取消-commit"><span class="toc-text">git 取消 commit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git查看全局配置信息"><span class="toc-text">git查看全局配置信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git常见问题"><span class="toc-text">git常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-fatal-remote-origin-already-exists"><span class="toc-text">1. fatal: remote origin already exists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-warning-LF-will-be-replaced-by-CRLF"><span class="toc-text">2. warning: LF will be replaced by CRLF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-如何退出編輯模式"><span class="toc-text">3. 如何退出編輯模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-執行push命令時出現錯誤"><span class="toc-text">4. 執行push命令時出現錯誤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-git-diff-无任何結果輸出"><span class="toc-text">5. git diff 无任何結果輸出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旅途感想"><span class="toc-text">旅途感想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2017年1月22日"><span class="toc-text">2017年1月22日</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2017年2月7日"><span class="toc-text">2017年2月7日</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-diff-探究"><span class="toc-text">git diff 探究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-git-diff"><span class="toc-text">1. git diff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-git-diff-–cached"><span class="toc-text">2. git diff –cached</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-git-diff-HEAD"><span class="toc-text">3. git diff HEAD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-git-diff-HEAD-–-lib"><span class="toc-text">4. git diff HEAD – ./lib</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-git-diff-test"><span class="toc-text">5. git diff test</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-git-diff-–stat"><span class="toc-text">6. git diff –stat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-diff-结果如何查看？"><span class="toc-text">git diff 结果如何查看？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-取消-commit"><span class="toc-text">git 取消 commit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git查看全局配置信息"><span class="toc-text">git查看全局配置信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git常见问题"><span class="toc-text">git常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-fatal-remote-origin-already-exists"><span class="toc-text">1. fatal: remote origin already exists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-warning-LF-will-be-replaced-by-CRLF"><span class="toc-text">2. warning: LF will be replaced by CRLF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-如何退出編輯模式"><span class="toc-text">3. 如何退出編輯模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-執行push命令時出現錯誤"><span class="toc-text">4. 執行push命令時出現錯誤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-git-diff-无任何結果輸出"><span class="toc-text">5. git diff 无任何結果輸出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-status-输入结果中文是一串数字"><span class="toc-text">git status 输入结果中文是一串数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-pull-进入vim窗口"><span class="toc-text">git pull 进入vim窗口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新本地代码"><span class="toc-text">更新本地代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旅途感想"><span class="toc-text">旅途感想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2017年1月22日"><span class="toc-text">2017年1月22日</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2017年2月7日"><span class="toc-text">2017年2月7日</span></a></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-Git之旅" class="article article-type-post" itemprop="blogPost">
+   <article id="post-git之旅" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
     <h1 class="post-title">Git之旅</h1>
 
@@ -225,7 +225,7 @@ commi">
 
       
         <i class="icon-comment"></i> 
-        <span class="ds-thread-count" data-thread-key="post-Git之旅"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+        <span class="ds-thread-count" data-thread-key="post-git之旅"><i class="fa fa-spinner fa-spin"></i></span> 条评论
       
 
     </div>
@@ -320,6 +320,21 @@ commi">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nothing to commit, working directory clean</div></pre></td></tr></table></figure>
 <p>即工作目录是干净的，没有任何内容需要提交。</p>
 <p><a href="http://www.oschina.net/question/1428681_139293?sort=time" target="_blank" rel="external">参考网址:我用windows msysgit 。在git bash命令窗口中输入git diff 命令为什么没有信息输出</a></p>
+<h3 id="git-status-输入结果中文是一串数字"><a href="#git-status-输入结果中文是一串数字" class="headerlink" title="git status 输入结果中文是一串数字"></a>git status 输入结果中文是一串数字</h3><p>【Reason】在默认设置下，中文文件名在工作区状态输出，查看历史更改概要，以及在补丁文件中，文件名的中文不能正确地显示，而是显示为八进制的字符编码</p>
+<p>配置变量 core.quotepath 设置为 false 可解决问题，具体命令为 <code>git config --global core.quotepath false</code></p>
+<h3 id="git-pull-进入vim窗口"><a href="#git-pull-进入vim窗口" class="headerlink" title="git pull 进入vim窗口"></a>git pull 进入vim窗口</h3><p>【解决步骤】</p>
+<blockquote>
+<ul>
+<li>esc 键退出编辑状态</li>
+<li>shift+;(即输入冒号)</li>
+<li>wq!(保存并退出)/q!(不保存直接退出) + 回车</li>
+</ul>
+</blockquote>
+<p>【建议】<br>编辑代码之前先 <code>pull</code> 一下，<code>push</code> 前也 <code>pull</code> 一下，减少不必要的麻烦；<br>也可先保存操作， <code>pull</code> 之后，在回复保存的内容，具体操作如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git stash</div><div class="line">$ git pull</div><div class="line">$ git stash pop stash@&#123;0&#125;</div></pre></td></tr></table></figure>
+<p>【PS】 <code>git stash list</code> 可查看保存的信息,输出如 <code>stash@{0}: WIP on master: d9b4a59 更新了hexo搭建个人博客</code> ,其中 stash@{0} 为保存的标记</p>
+<p><a href="http://www.qingpingshan.com/pc/fwq/132173.html" target="_blank" rel="external">git pull时出现vim窗口的解决办法</a></p>
+<h2 id="更新本地代码"><a href="#更新本地代码" class="headerlink" title="更新本地代码"></a>更新本地代码</h2><p><code>git pull</code> 拉取代码并合并 = <code>git fech</code> + <code>git merge</code></p>
 <h2 id="旅途感想"><a href="#旅途感想" class="headerlink" title="旅途感想"></a>旅途感想</h2><h3 id="2017年1月22日"><a href="#2017年1月22日" class="headerlink" title="2017年1月22日"></a>2017年1月22日</h3><p>使用 git 工具，應該勤提交代碼，不然有的時候我們修改了多處代碼，一次性 add 進入索引區，在 <code>git commit</code> 時候，使用 <code>-m</code> 參數很難進行準確描述,即使描述清楚了，也會顯得冗長，對於修改的文件來説，描述也不夠專注準確</p>
 <h3 id="2017年2月7日"><a href="#2017年2月7日" class="headerlink" title="2017年2月7日"></a>2017年2月7日</h3><p>积累的过程真快乐^O^ </p>
 
@@ -442,7 +457,7 @@ commi">
     
   <section class="duoshuo-comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-Git之旅" data-title="Git之旅" data-url="https://bruceyu1994.github.io/2016/10/14/Git之旅/index.html"></div>
+    <div class="ds-thread" data-thread-key="post-git之旅" data-title="Git之旅" data-url="https://bruceyu1994.github.io/2016/10/14/git之旅/index.html"></div>
     <!-- 多说评论框 end -->
   </section>
 
